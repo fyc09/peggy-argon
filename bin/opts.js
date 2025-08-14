@@ -31,6 +31,7 @@ const PROG_OPTIONS = [
   "testFile",
   "verbose",
   "watch",
+  "argon",
 ];
 
 /**
@@ -55,6 +56,7 @@ const PROG_OPTIONS = [
  * @property {string} [outputJS]
  * @property {boolean} [verbose]
  * @property {boolean} [watch]
+ * @property {boolean} [argon]
  */
 
 /*

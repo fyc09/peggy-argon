@@ -161,6 +161,10 @@ class PeggyCLI extends Command {
         "Generate a source map. If name is not specified, the source map will be named \"<input_file>.map\" if input is a file and \"source.map\" if input is a standard input. If the special filename `inline` is given, the sourcemap will be embedded in the output file as a data URI.  If the filename is prefixed with `hidden:`, no mapping URL will be included so that the mapping can be specified with an HTTP SourceMap: header.  This option conflicts with the `-t/--test` and `-T/--test-file` options unless `-o/--output` is also specified"
       )
       .option(
+        "--argon",
+        "Generate parser with Argon actions."
+      )
+      .option(
         "--return-types <typeInfo>",
         "Types returned for rules, as JSON object of the form {\"ruleName\": \"type\"}",
         moreJSON
@@ -556,6 +560,8 @@ return util.inspect(results, {
         }
       };
 
+      this.parserOptions.argon = this.progOptions.argon;
+
       const source = peggy.generate(
         sources,
         this.parserOptions
@@ -571,8 +577,8 @@ return util.inspect(results, {
         await this.writeOutput(outputStream, JSON.stringify(source, null, 2));
       } else {
         assert(source.code);
-        errorText = "writing sourceMap";
-        this.verbose("CLI maybe", errorText);
+        errorText = "maybe writing sourceMap";
+        this.verbose("CLI", errorText);
         const mappedSource = await this.writeSourceMap(source.code);
 
         errorText = "maybe writing parser";
